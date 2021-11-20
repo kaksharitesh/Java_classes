@@ -60,6 +60,19 @@ public class BST<K extends Comparable<K>, V> {
 		inOrder(n.left);
 		inOrder(n.right);
 	}
+	
+	public void postOrder() {
+		System.out.println("Printing preorder of BST");
+		postOrder(root);
+	}
+
+	private void postOrder(Node n) {
+		if (n == null)
+			return;
+		postOrder(n.left);
+		postOrder(n.right);
+		System.out.println(n.key);
+	}
 
 	// tree traversals
 	// in order
