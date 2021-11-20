@@ -1,7 +1,5 @@
 package com.kaksha.ds;
 
-import java.util.Iterator;
-
 public class UndirectedGraph {
 
 	private Bag[] adj;
@@ -18,12 +16,13 @@ public class UndirectedGraph {
 
 	public void addEdge(int v, int w) {
 		adj[v].add(w);
-		adj[w].add(v);
+		if (w != v)
+			adj[w].add(v);
 		E++;
 	}
 
-	public Iterator<Integer> adj(int v) {
-		return adj[v].iterator();
+	public Iterable<Integer> adj(int v) {
+		return adj[v];
 	}
 
 	public int V() {
@@ -33,16 +32,36 @@ public class UndirectedGraph {
 	public int E() {
 		return E;
 	}
-	
+
 	public int degree(int v) {
-		return 0;
+		int degree = 0;
+		for (int w : adj[v]) {
+			degree++;
+		}
+		return degree;
 	}
-	
+
 	public int maxDegree() {
-		return 0;
+		int maxDegree = 0;
+		for (int i = 0; i < V; i++) {
+			int degree = degree(i);
+			if (degree > maxDegree)
+				maxDegree = degree;
+		}
+		return maxDegree;
 	}
-	
+
 	public boolean hasSelfLoop() {
+		for (int v = 0; v < V; v++) {
+			for (int w : adj[v]) {
+				if (w == v)
+					return true;
+			}
+		}
 		return false;
+	}
+
+	public float averageDegree() {
+		return 2 * E / V;
 	}
 }
