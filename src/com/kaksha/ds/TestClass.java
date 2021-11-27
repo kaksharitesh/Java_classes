@@ -5,14 +5,20 @@ import java.util.Stack;
 
 public class TestClass {
 	public static void main(String[] args) {
-		UndirectedGraph g = new UndirectedGraph(8);
+		UndirectedGraph g = new UndirectedGraph(13);
+		g.addEdge(5, 3);
+		g.addEdge(5, 4);
+		g.addEdge(5, 0);
 		g.addEdge(0, 1);
-		g.addEdge(1, 2);
-		g.addEdge(0, 3);
-		g.addEdge(2, 4);
-		g.addEdge(4, 5);
-		g.addEdge(6, 7);
-		g.addEdge(0, 5);
+		g.addEdge(0, 2);
+		g.addEdge(0, 6);
+		g.addEdge(4, 6);
+		g.addEdge(3, 4);
+		g.addEdge(8, 7);
+		g.addEdge(9, 10);
+		g.addEdge(9, 11);
+		g.addEdge(9, 12);
+		g.addEdge(11, 12);
 
 
 		System.out.println(g.V());
@@ -25,20 +31,24 @@ public class TestClass {
 		System.out.println(g.hasSelfLoop());
 		System.out.println(g.averageDegree());
 		
-		DFS d = new DFS(g);
-		System.out.println(d.isPath(5));
-		System.out.println(d.isPath(6));
-		Stack<Integer> s = d.path(5);
-		while(!s.isEmpty()) {
-			System.out.print(s.pop()+"->");
-		}
-		System.out.println();
-		s = d.path(5);
-		while(!s.isEmpty()) {
-			System.out.print(s.pop()+"->");
-		}
-		System.out.println();
+		CC d = new CC(g);
+		System.out.println(d.isPath(7));
+		System.out.println(d.isPath(4));
+		
+		System.out.println("1 is connected to 9 "+ d.isConnected(1, 9));
+		System.out.println("1 is connected to 6 "+ d.isConnected(1, 6));
+		
+		for(int i =0;i<13;i++)
+			shortestPath(d, i);
+	}
 
+	private static void shortestPath(CC d, int i) {
+		System.out.println("path to "+i);
+		Stack<Integer> s = d.path(i);
+		while(!s.isEmpty()) {
+			System.out.print(s.pop()+"->");
+		}
+		System.out.println();
 	}
 
 	private static void printAdjacencylist(UndirectedGraph g, int V) {
