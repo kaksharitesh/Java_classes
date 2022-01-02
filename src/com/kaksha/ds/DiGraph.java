@@ -1,12 +1,12 @@
 package com.kaksha.ds;
 
-public class UndirectedGraph {
+public class DiGraph {
 
 	private Bag[] adj;
 	private int V;
 	private int E;
 
-	public UndirectedGraph(int V) {
+	public DiGraph(int V) {
 		this.V = V;
 		adj = new Bag[V];
 		for (int i = 0; i < V; i++) {
@@ -16,7 +16,6 @@ public class UndirectedGraph {
 
 	public void addEdge(int v, int w) {
 		adj[v].add(w);
-		adj[w].add(v);
 		E++;
 	}
 
